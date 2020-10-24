@@ -12,7 +12,7 @@ public class Status : MonoBehaviour
 
     public void takeDmg(float dmg)
     {
-        health -= health;
+        health -= dmg;
         if (!isDead && health <= 0)
             die();
 
@@ -22,5 +22,6 @@ public class Status : MonoBehaviour
     {
         isDead = true;
         Debug.Log("dead");
+        GetComponent<StateManager>().stopAllActions();
     }
 }

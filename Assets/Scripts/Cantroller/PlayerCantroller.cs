@@ -25,7 +25,7 @@ namespace Cantrollers
         // Update is called once per frame
         void Update()
         {
-            GetComponent<FieldOfView>().FindEnemies();
+            //GetComponent<FieldOfView>().FindEnemies();
             if (CharStat.isDead)
                 return;
             if (respondAction())
@@ -70,7 +70,7 @@ namespace Cantrollers
             RaycastHit hit;
             if (Physics.Raycast(touch_ray,out hit))
             {
-                GetComponent<Move>().moveTo(hit.point);
+                GetComponent<Move>().StartMoveAction(hit.point,1f);
                 return true;
             }
             return false;

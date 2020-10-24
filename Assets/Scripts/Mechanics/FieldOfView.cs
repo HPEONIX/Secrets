@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cantrollers;
 
 public class FieldOfView : MonoBehaviour
 {
@@ -21,8 +22,10 @@ public class FieldOfView : MonoBehaviour
             var direction = (transform.position- enemytransform.position).normalized;
             if(Vector3.Angle(enemytransform.forward,direction)<enemyFov.FovAngle/2)
             {
-                if(!Physics.Raycast(enemytransform.position,direction,Vector3.Distance(enemytransform.position,transform.position),enemyFov.worldMask))
-                    Debug.Log("stop there");
+                if (!Physics.Raycast(enemytransform.position, direction, Vector3.Distance(enemytransform.position, transform.position), enemyFov.worldMask))
+                {
+                    Debug.Log("found you");
+                }
             }
         }
     }
