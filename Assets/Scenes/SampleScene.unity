@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 22402063}
   - component: {fileID: 22402064}
   m_Layer: 0
-  m_Name: CM vcam1
+  m_Name: PlayerFollowCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -487,7 +487,8 @@ GameObject:
   - component: {fileID: 1599616780}
   - component: {fileID: 1599616779}
   - component: {fileID: 1599616784}
-  m_Layer: 0
+  - component: {fileID: 1599616785}
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,8 +585,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1599616778}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.51, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.51, z: 18.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1649075300}
@@ -605,6 +606,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1599616785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599616778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad60198fd635c74eacbbd5c7a5bd0c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FovAngle: 79.8
+  FovDistance: 9.1
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &1649075299
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +701,8 @@ GameObject:
   - component: {fileID: 1917840074}
   - component: {fileID: 1917840073}
   - component: {fileID: 1917840075}
-  m_Layer: 0
+  - component: {fileID: 1917840076}
+  m_Layer: 10
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -814,6 +833,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &1917840076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917840068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad60198fd635c74eacbbd5c7a5bd0c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FovAngle: 107
+  FovDistance: 9
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &2142226427
 GameObject:
   m_ObjectHideFlags: 3

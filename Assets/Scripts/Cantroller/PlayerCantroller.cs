@@ -7,10 +7,15 @@ using UnityEngine;
 namespace Cantrollers
 { 
     [RequireComponent(typeof(Move))]
+    [RequireComponent(typeof(Status))]
     public class PlayerCantroller : MonoBehaviour
     {
 
-        public bool isDed = false;
+        Status CharStat;
+        private void Awake()
+        {
+            CharStat=GetComponent<Status>();
+        }
         // Start is called before the first frame update
         void Start()
         {
@@ -20,7 +25,8 @@ namespace Cantrollers
         // Update is called once per frame
         void Update()
         {
-            if (isDed)
+            GetComponent<FieldOfView>().FindEnemies();
+            if (CharStat.isDead)
                 return;
             if (respondAction())
                 return;
