@@ -5,6 +5,8 @@ using UnityEngine.Playables;
 
 [RequireComponent(typeof(PlayableDirector))]
 [RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CinimaticsCantrolRemover))]
 public class Cinimatics : MonoBehaviour
     {
         private void OnTriggerEnter(Collider other)

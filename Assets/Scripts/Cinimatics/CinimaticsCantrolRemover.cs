@@ -4,8 +4,7 @@ using Cantrollers;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace RPG.Cinimatics
-{
+
     public class CinimaticsCantrolRemover : MonoBehaviour
     {
         GameObject player;
@@ -28,4 +27,3 @@ namespace RPG.Cinimatics
             player.GetComponent<PlayerCantroller>().enabled = true;
         }
     }
-}
