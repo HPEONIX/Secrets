@@ -7,21 +7,38 @@ using UnityEngine.AI;
 namespace movement
 {
     [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(StateManager))]
     public class Move : MonoBehaviour, IActions
     {
         public float maxSpeed = 6f;
+        public float speed;
 
 
         NavMeshAgent meshAgent;
+        Animator CharAnim;
 
         private void Awake()
         {
             meshAgent = GetComponent<NavMeshAgent>();
+            CharAnim = GetComponent<Animator>();
         }
+
+        private void Update()
+        {
+            if(CharAnim!=null)
+            {
+                Vector3 globalspeed = meshAgent.velocity;
+                Vector3 localVelocity = transform.InverseTransformDirection(globalspeed);
+                speed = Mathf.Abs(localVelocity.z);
+                CharAnim.SetFloat("Speed", speed);
+            }
+            
+        }
+
         public void moveTo(Vector3 position, float SpeedFraction)
         {
             meshAgent.isStopped = false;
-            setSpeed(SpeedFraction);
+            meshAgent.speed = maxSpeed * SpeedFraction;
             meshAgent.SetDestination(position);
         }
         public void pauseAction()
@@ -33,11 +50,6 @@ namespace movement
         {
             pauseAction();
             meshAgent.SetDestination(transform.position);
-        }
-
-        public void setSpeed(float speedCantrol)
-        {
-            meshAgent.speed = maxSpeed * Mathf.Clamp01(speedCantrol);
         }
 
         internal void StartMoveAction(Vector3 destination, float SpeedFraction)

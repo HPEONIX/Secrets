@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cantrollers;
 
 public class EnemyFov : MonoBehaviour
 {
@@ -29,6 +28,7 @@ public class EnemyFov : MonoBehaviour
         Vector3 viangle2 = DirFromAngle(FovAngle / 2, false);
         Gizmos.DrawLine(transform.position, transform.position + viAngle * FovDistance);
         Gizmos.DrawLine(transform.position, transform.position + viangle2 * FovDistance);
+        Gizmos.color = Color.cyan;
     }
     public bool FindEnemies()
     {
@@ -36,14 +36,19 @@ public class EnemyFov : MonoBehaviour
         foreach (var enemy in targets)
         {
             var enemytransform = enemy.transform;
-            var enemyFov = GetComponent<EnemyFov>();
-            var direction = ( enemytransform.position - transform.position).normalized;
-            if (Vector3.Angle(enemytransform.forward, direction) < enemyFov.FovAngle / 2)
+            return enemyInFront(enemytransform);
+        }
+        return false;
+    }
+
+    public bool enemyInFront( Transform enemytransform)
+    {
+        var direction = (enemytransform.position - transform.position).normalized;
+        if (Vector3.Angle(transform.forward, direction) <FovAngle / 2)
+        {
+            if (!Physics.Raycast(transform.position, direction, Vector3.Distance(enemytransform.position, transform.position), worldMask))
             {
-                if (!Physics.Raycast(transform.position, direction, Vector3.Distance(enemytransform.position, transform.position), enemyFov.worldMask))
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;

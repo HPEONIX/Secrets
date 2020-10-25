@@ -12,6 +12,13 @@ namespace Cantrollers
     {
 
         Status CharStat;
+        public float sprintSpeed;
+        public float MaxSprintTime=2f;
+        public float elapsedSprintTime=0;
+        bool canRun = true;
+        [Range(0, 1)]
+        public float walkSpeed;
+
         private void Awake()
         {
             CharStat=GetComponent<Status>();
@@ -25,14 +32,52 @@ namespace Cantrollers
         // Update is called once per frame
         void Update()
         {
+
             //GetComponent<FieldOfView>().FindEnemies();
             if (CharStat.isDead)
                 return;
+            ExtraCheck();
+
             if (respondAction())
                 return;
             if (movementAction())
                 return;
         
+        }
+
+        private void ExtraCheck()
+        {
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                if(elapsedSprintTime < MaxSprintTime && canRun && GetComponent<Move>().speed>0.5)
+                {
+                    sprintSpeed = 1f;
+                    elapsedSprintTime += Time.deltaTime;
+                }
+                else
+                {
+                    canRun = false;
+                    sprintSpeed = walkSpeed;
+                    if (elapsedSprintTime > 0)
+                        elapsedSprintTime -= Time.deltaTime;
+                    if (elapsedSprintTime <= 0)
+                    {
+                        elapsedSprintTime = 0;
+                        canRun = true;
+                    }
+                }
+            }
+            else
+            {
+                sprintSpeed = walkSpeed;
+                if (elapsedSprintTime>0)
+                    elapsedSprintTime -= Time.deltaTime;
+                if(elapsedSprintTime <= 0)
+                {
+                    elapsedSprintTime = 0;
+                    canRun = true;
+                }
+            }
         }
 
         //todo : interact with interactable
@@ -53,7 +98,7 @@ namespace Cantrollers
 
         private static Vector2 GetScreenPos()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 return Input.mousePosition;
             }
@@ -70,7 +115,7 @@ namespace Cantrollers
             RaycastHit hit;
             if (Physics.Raycast(touch_ray,out hit))
             {
-                GetComponent<Move>().StartMoveAction(hit.point,1f);
+                GetComponent<Move>().StartMoveAction(hit.point,sprintSpeed);
                 return true;
             }
             return false;

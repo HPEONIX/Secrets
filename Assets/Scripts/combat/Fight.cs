@@ -13,6 +13,8 @@ public class Fight : MonoBehaviour, IActions
     public float attackDistance;
     public float attackcooldown = 2f;
     public float damage;
+    [Range(0, 1)]
+    public float chaseSeed=1f;
 
     float TimeofLastAttack = 0f;
 
@@ -38,7 +40,7 @@ public class Fight : MonoBehaviour, IActions
 
         if (!InRange())
         {
-            GetComponent<Move>().moveTo(targetstat.transform.position,1f);
+            GetComponent<Move>().moveTo(targetstat.transform.position,chaseSeed);
         }
         else
         {
@@ -61,7 +63,7 @@ public class Fight : MonoBehaviour, IActions
 
     private bool InRange()
     {
-        return Vector3.Distance(transform.position, targetstat.transform.position) < attackDistance;
+        return Vector3.Distance(transform.position, targetstat.transform.position) < attackDistance && GetComponent<EnemyFov>().enemyInFront(targetstat.transform);
     }
 
     public bool canAttack(GameObject target)
@@ -87,7 +89,12 @@ public class Fight : MonoBehaviour, IActions
 
     public void stopAction()
     {
-        GetComponent<Move>().stopAction();
+        
         targetstat = null;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
 }

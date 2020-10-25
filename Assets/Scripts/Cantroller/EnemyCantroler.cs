@@ -9,6 +9,7 @@ namespace Cantrollers
     [RequireComponent(typeof(Move))]
     [RequireComponent(typeof(Status))]
     [RequireComponent(typeof(Fight))]
+    [RequireComponent(typeof(EnemyFov))]
     public class EnemyCantroler : MonoBehaviour
     {
         public PatrolPath patrolPath;
@@ -26,6 +27,8 @@ namespace Cantrollers
         private int currentWaypointIndex =0;
 
         public float WaypointDelta = 1f;
+        [Range(0, 1)]
+        public float guardWalkSpeed=0.75f;
 
         private void Awake()
         {
@@ -86,7 +89,7 @@ namespace Cantrollers
                 wayPointPos = getCurrentWaypoint();
             }
             if (timeSinceArrivedAtWayPoint > WaypointDwellTime)
-                GetComponent<Move>().StartMoveAction(wayPointPos,0.9f);
+                GetComponent<Move>().StartMoveAction(wayPointPos,guardWalkSpeed);
         }
 
         private void CycleWaypoint()

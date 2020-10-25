@@ -21,7 +21,7 @@ public class Status : MonoBehaviour
     private void die()
     {
         isDead = true;
-        Debug.Log("dead");
+        GetComponent<Animator>().SetTrigger("Dead");
         GetComponent<StateManager>().stopAllActions();
     }
 }
