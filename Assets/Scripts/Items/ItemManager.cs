@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     public GameObject wayBlocker;
+    public TextChanger tc;
 
     int count ;
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class ItemManager : MonoBehaviour
         if (wayBlocker == null) return;
         if(check())
         {
+            tc.settext();
             wayBlocker.SetActive(false);
             return;
         }
